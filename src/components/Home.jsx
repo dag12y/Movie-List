@@ -41,7 +41,9 @@ export default function Home() {
                 })
                 .catch((err) => {
                     console.error(err);
-                    setError("Something went wrong"); // fallback error
+                    setError(
+                        "Unable to find what you’re looking for. Please try another search."
+                    ); // fallback error
                 });
         }
     }

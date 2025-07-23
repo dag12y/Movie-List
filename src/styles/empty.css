@@ -61,10 +61,12 @@
     
 }
 .image{
+    width: 100%;
     position: absolute;
     top: 40%;
     left: 40%;
-    transform: translate(-40% -40%);
+    transform: translateX(-40%);
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,5 +85,6 @@
     font-style: Bold;
     font-size: 18px;
     line-height: 20px;
-
+    max-width: 300px;
+    text-align: center;
 }
