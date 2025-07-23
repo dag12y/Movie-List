@@ -5,9 +5,11 @@ import movieImage from "../assets/movie-icon.png";
 import { useState } from "react";
 import "../styles/home.css";
 
-export default function Home() {
+export default function Home(props) {
     let [SearchResult, setSearchResult] = useState([]);
-    let [error, setError] = useState(""); // <-- new state
+    let [error, setError] = useState(""); 
+
+    
 
     function handleSearch(title) {
         if (String(title).trim()) {
@@ -48,7 +50,7 @@ export default function Home() {
         }
     }
 
-    return (
+    return props.isHome ? (
         <div className="empty">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="search" />
             <input type="text" placeholder="Movie Name" />
@@ -93,6 +95,30 @@ export default function Home() {
                     ))}
                 </div>
             )}
+        </div>
+    ) : (
+        <div className="movie-list">
+            {SearchResult.map((movie) => (
+                <div className="movie-card" key={movie.imdbID}>
+                    <div className="poster">
+                        <img src={movie.Poster} alt={movie.Title} />
+                    </div>
+
+                    <div className="details">
+                        <h2 className="title">
+                            {movie.Title}
+                            <span className="rating">
+                                ⭐ {movie.imdbRating}
+                            </span>
+                        </h2>
+                        <p className="meta">
+                            {movie.Runtime} • {movie.Genre}
+                        </p>
+                        <button className="watchlist-btn">＋ Watchlist</button>
+                        <p className="plot">{movie.Plot}</p>
+                    </div>
+                </div>
+            ))}
         </div>
     );
 }
