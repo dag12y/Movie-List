@@ -1,9 +1,11 @@
 import Header from './components/Header'
-import Empty from './components/Empty'
+import Home from './components/Home'
 function App() {
+
+  
   return(<>
     <Header />
-    <Empty/>
+    <Home/>
   </>)
 }
 
