@@ -3,10 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
+html {
+    scroll-behavior: smooth;
+}
+body {
     width: 600px;
-    height: 98vh;
+    min-height: 98vh;
     background-color: #1C1C1C;
     margin: 1vh auto;
-    overflow: hidden;
+    overflow: auto; 
 }
