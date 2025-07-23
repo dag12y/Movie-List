@@ -7,18 +7,27 @@ import "../styles/home.css";
 
 export default function Home() {
     let [SearchResult, setSearchResult] = useState([]);
+    let [error, setError] = useState(""); // <-- new state
 
     function handleSearch(title) {
         if (String(title).trim()) {
-            setSearchResult([]);
+            setSearchResult([]); // Clear previous results
+            setError(""); // Clear previous error
             const newTitle = encodeURIComponent(String(title).trim());
 
             fetch(
                 `http://www.omdbapi.com/?apikey=7e41052a&s=${newTitle}&plot=short`
             )
                 .then((res) => res.json())
-                .then((data) => data.Search)
+                .then((data) => {
+                    if (!data.Search) {
+                        setError("Movie not found"); // <-- set error here
+                        return [];
+                    }
+                    return data.Search;
+                })
                 .then((movieSet) => {
+                    if (movieSet.length === 0) return; // no movies to fetch
                     const detailPromises = movieSet.map((movie) => {
                         const imdbID = movie.imdbID;
                         return fetch(
@@ -29,10 +38,13 @@ export default function Home() {
                     Promise.all(detailPromises).then((detailedMovies) => {
                         setSearchResult(detailedMovies);
                     });
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setError("Something went wrong"); // fallback error
                 });
         }
     }
-    
 
     return (
         <div className="empty">
@@ -50,7 +62,7 @@ export default function Home() {
             {SearchResult.length === 0 ? (
                 <div className="image">
                     <img src={movieImage} alt="movie" />
-                    <p>Start exploring</p>
+                    <p>{error ? error : "Start exploring"}</p>
                 </div>
             ) : (
                 <div className="movie-list">
@@ -81,5 +93,4 @@ export default function Home() {
             )}
         </div>
     );
-
 }

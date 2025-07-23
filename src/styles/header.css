@@ -9,6 +9,8 @@ header {
     align-items: center;
     justify-content: space-evenly;
     color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 header::before {
@@ -24,6 +26,8 @@ header::before {
     background-repeat: no-repeat;
     opacity: 0.2;
     z-index: -1000;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 header .title {
     font-family: Inter;
