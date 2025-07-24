@@ -91,7 +91,7 @@
 
 @media (max-width: 480px) {
   .empty {
-    min-height: 60vh;
+    min-height: 80vh;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
