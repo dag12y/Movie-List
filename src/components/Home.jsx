@@ -24,7 +24,7 @@ export default function Home(props) {
             const newTitle = encodeURIComponent(String(title).trim());
 
             fetch(
-                `http://www.omdbapi.com/?apikey=7e41052a&s=${newTitle}&plot=short`
+                `https://www.omdbapi.com/?apikey=7e41052a&s=${newTitle}&plot=short`
             )
                 .then((res) => res.json())
                 .then((data) => {
@@ -39,7 +39,7 @@ export default function Home(props) {
                     const detailPromises = movieSet.map((movie) => {
                         const imdbID = movie.imdbID;
                         return fetch(
-                            `http://www.omdbapi.com/?apikey=7e41052a&i=${imdbID}&plot=short`
+                            `https://www.omdbapi.com/?apikey=7e41052a&i=${imdbID}&plot=short`
                         ).then((res) => res.json());
                     });
 
