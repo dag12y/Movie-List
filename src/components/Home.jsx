@@ -2,14 +2,19 @@ import "../styles/empty.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import movieImage from "../assets/movie-icon.png";
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import "../styles/home.css";
 
 export default function Home(props) {
     let [SearchResult, setSearchResult] = useState([]);
     let [error, setError] = useState(""); 
-
+    let [watchlist, setWatchlist] = useState(
+        JSON.parse(localStorage.getItem("watchlist")) || []
+    );
     
+    useEffect(() => {
+        localStorage.setItem("watchlist", JSON.stringify(watchlist));
+    }, [watchlist]);
 
     function handleSearch(title) {
         if (String(title).trim()) {
@@ -50,6 +55,25 @@ export default function Home(props) {
         }
     }
 
+    function addToWatchList(index) {
+        const movie = SearchResult[index];
+        setWatchlist((prev) => {
+            if (prev.find((item) => item.imdbID === movie.imdbID)) return prev; // avoid duplicates
+            return [...prev, movie];
+        });
+
+    }
+
+    
+    function removeWatchlist(index) {
+        setWatchlist((prev) => {
+            const newList = [...prev];
+            newList.splice(index, 1);
+            return newList;
+        });
+    }
+
+    
     return props.isHome ? (
         <div className="empty">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="search" />
@@ -70,7 +94,7 @@ export default function Home(props) {
                 </div>
             ) : (
                 <div className="movie-list">
-                    {SearchResult.map((movie) => (
+                    {SearchResult.map((movie,index) => (
                         <div className="movie-card" key={movie.imdbID}>
                             <div className="poster">
                                 <img src={movie.Poster} alt={movie.Title} />
@@ -86,7 +110,9 @@ export default function Home(props) {
                                 <p className="meta">
                                     {movie.Runtime} • {movie.Genre}
                                 </p>
-                                <button className="watchlist-btn">
+                                <button className="watchlist-btn" onClick={()=>{
+                                    addToWatchList(index)
+                                }}>
                                     ＋ Watchlist
                                 </button>
                                 <p className="plot">{movie.Plot}</p>
@@ -98,8 +124,8 @@ export default function Home(props) {
         </div>
     ) : (
         <div className="movie-list">
-            {SearchResult.map((movie) => (
-                <div className="movie-card" key={movie.imdbID}>
+            {watchlist.map((movie,index) => (
+                <div className="movie-card" key={movie.imdbID} id={movie.imdbID}>
                     <div className="poster">
                         <img src={movie.Poster} alt={movie.Title} />
                     </div>
@@ -114,7 +140,9 @@ export default function Home(props) {
                         <p className="meta">
                             {movie.Runtime} • {movie.Genre}
                         </p>
-                        <button className="watchlist-btn">＋ Watchlist</button>
+                        <button  className="watchlist-btn" onClick={()=>{
+                            removeWatchlist(index);
+                        }}>- remove</button>
                         <p className="plot">{movie.Plot}</p>
                     </div>
                 </div>
