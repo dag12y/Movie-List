@@ -6,7 +6,7 @@ export default function Header(props){
     return (
         <header>
             <p className="title">Find your film</p>
-            <p className="toggle" onClick={props.toggle}>My Watchlist</p>
+            <p className="toggle" onClick={props.toggle}>{isHome ? 'My WatchList' : 'Go Back'}</p>
         </header>
     );
 }
