@@ -2,16 +2,17 @@ import "../styles/empty.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import movieImage from "../assets/movie-icon.png";
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/home.css";
 
 export default function Home(props) {
+    const [searchInput, setSearchInput] = useState("");
     let [SearchResult, setSearchResult] = useState([]);
-    let [error, setError] = useState(""); 
+    let [error, setError] = useState("");
     let [watchlist, setWatchlist] = useState(
         JSON.parse(localStorage.getItem("watchlist")) || []
     );
-    
+
     useEffect(() => {
         localStorage.setItem("watchlist", JSON.stringify(watchlist));
     }, [watchlist]);
@@ -61,10 +62,8 @@ export default function Home(props) {
             if (prev.find((item) => item.imdbID === movie.imdbID)) return prev; // avoid duplicates
             return [...prev, movie];
         });
-
     }
 
-    
     function removeWatchlist(index) {
         setWatchlist((prev) => {
             const newList = [...prev];
@@ -73,16 +72,22 @@ export default function Home(props) {
         });
     }
 
-    
     return props.isHome ? (
         <div className="empty">
             <FontAwesomeIcon icon={faMagnifyingGlass} className="search" />
-            <input type="text" placeholder="Movie Name" />
+            <input
+                type="text"
+                placeholder="Movie Name"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearch(searchInput);
+                }}
+            />
+
             <button
                 className="search-button"
-                onClick={() => {
-                    handleSearch(document.querySelector("input").value);
-                }}
+                onClick={() => handleSearch(searchInput)}
             >
                 Search
             </button>
