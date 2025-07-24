@@ -46,3 +46,30 @@ header .toggle {
     line-height: 20px;
     margin-top: 30px;
 }
+
+@media (max-width: 480px) {
+  header {
+    height: 100px;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px 8px 0 8px;
+  }
+  header .title {
+    font-size: 1.3rem;
+    margin-left: 0;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  header .toggle {
+    font-size: 1rem;
+    margin-top: 8px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  header::before {
+    background-position: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+}
