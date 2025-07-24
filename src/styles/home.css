@@ -71,12 +71,13 @@
 
 @media (max-width: 480px) {
   .movie-list {
-    padding: 10px 2px 5px;
+    padding: 25px 2px 5px;
   }
   .movie-card {
     flex-direction: column;
     margin-bottom: 14px;
     border-radius: 8px;
+    padding-top: 10px;
   }
   .poster img {
     width: 120px;
