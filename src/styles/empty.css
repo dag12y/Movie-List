@@ -49,18 +49,27 @@
     height: 20px;
     font-size: 16px;
 }
-.empty .search-button{
+.empty .search-button {
     position: absolute;
     top: -20px;
+    right: 10%;
     width: 20%;
     height: 40px;
-    right: 10%;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
     background-color: #4B4B4B;
-    color: #fff;
-    
+    color: #ffffff;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.empty .search-button:hover {
+    background-color: #666;
+}
+
 .image{
     width: 100%;
     position: absolute;
