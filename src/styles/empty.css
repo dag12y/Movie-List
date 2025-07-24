@@ -42,11 +42,12 @@
 }
 .empty .search{
     position: absolute;
-    top: -20px;
+    top: -10px;
     left: 70px;
-    color:#9CA3AF;
+    color:#9cafa7;
     z-index: 2;
-    height: 40px;
+    height: 20px;
+    font-size: 16px;
 }
 .empty .search-button{
     position: absolute;
@@ -75,7 +76,7 @@
 }
 .image img{
     width: 70px;
-    height: 62;
+    height: 62px;
     color: #2E2E2F;
 }
 .image p{
@@ -103,9 +104,9 @@
     top: -16px;
   }
   .empty .search {
-    left: 18px;
-    height: 36px;
-    top: -16px;
+    left: 20px;
+    height: 20px;
+    top: -7px;
   }
   .empty .search-button {
     width: 30%;
